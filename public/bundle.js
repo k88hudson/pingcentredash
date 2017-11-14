@@ -1647,8 +1647,8 @@ function emoji( country ){
 }
 
 const DATA_URL = "https://sql.telemetry.mozilla.org/api/queries/49097/results.json?api_key=";
-const DEFAULT_DIFF = 25493;
-const FIVE_MINUTES = 5 * 60 * 1000;
+const DEFAULT_DIFF = 50493;
+const TEN_MINUTES = 10 * 60 * 1000;
 
 function getTopFiveCountries(countries) {
   return countries.sort((a, b) => {
@@ -1705,7 +1705,7 @@ const Counter = props => React.createElement(
 );
 
 function increment(currentValue, lastDiff, updateFreq) {
-  const amount = lastDiff / (FIVE_MINUTES / updateFreq);
+  const amount = lastDiff / (TEN_MINUTES / updateFreq);
   return currentValue + amount;
 }
 
@@ -1740,7 +1740,7 @@ class App extends React.PureComponent {
   }
   setIntervals() {
     if (!this.inverval) {
-      this.interval = setInterval(this.updateData, FIVE_MINUTES);
+      this.interval = setInterval(this.updateData, TEN_MINUTES);
       this.fakeInterval = setInterval(() => {
         this.setState({ users: increment(this.state.users, this.state.lastUserDiff, 5000) });
       }, 5000);
