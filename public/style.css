@@ -488,6 +488,7 @@ h3 {
 
 .country-table td {
   padding: 0 10px;
+  line-height: 1;
 }
 .country-table .flag {
   font-size: 1.8em;
