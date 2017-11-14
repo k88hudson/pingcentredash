@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "live-server ./public --port=1977 --watch=public,src",
-    "bundle": "rollup -c rollup.config.js"
+    "bundle": "rollup -c rollup.config.js",
+    "release": "git add public/bundle.js -f && git commit -m \"commit bundle for deploy\""
   },
   "author": "",
   "license": "ISC",
