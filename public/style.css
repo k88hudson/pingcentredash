@@ -50,7 +50,7 @@ h3 {
 }
 
 .three > .bubble:first-child {
-  background: rgba(0, 254, 255, 0.8);
+  background: rgba(0, 200, 215, 0.8);
   width: 21vw;
   height: 21vw;
   bottom: 12vh;
@@ -61,7 +61,7 @@ h3 {
 .three > .bubble:nth-child(2) {
   background: rgba(237, 0, 181, 0.8);
   mix-blend-mode: screen;
-  left: 27vw;
+  left: 29vw;
   width: 18vw;
   height: 18vw;
   bottom: 6vh;
