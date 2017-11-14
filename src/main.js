@@ -61,7 +61,7 @@ class App extends React.PureComponent {
       newtabs: 0,
       pocket: 0,
       countries: [],
-      lastUserDiff: 0,
+      lastUserDiff: 593,
       _lastRealUserCount: null
     };
     this.updateData = this.updateData.bind(this);
@@ -71,29 +71,30 @@ class App extends React.PureComponent {
     const data = await getData(this.state.apiKey);
 
     if (data) {
-      let lastUserDiff;
-      const realDiff = this.state._lastRealUserCount && data.users - this.state._lastRealUserCount;
-      if (this.state.users === 0) {
-        lastUserDiff = this.state.lastUserDiff || DEFAULT_DIFF;
-      } else if (realDiff) {
-        lastUserDiff = realDiff;
-      } else {
-        lastUserDiff = this.state.lastUserDiff || DEFAULT_DIFF;
-      }
-      console.log("Last real diff", realDiff);
-      console.log("New user count", data.users);
-      console.log("New diff to use", lastUserDiff);
-      this.setState(Object.assign({}, data, {
-        _lastRealUserCount: data.users,
-        lastUserDiff
-      }));
+      this.setState(data);
+      // let lastUserDiff;
+      // const realDiff = this.state._lastRealUserCount && data.users - this.state._lastRealUserCount;
+      // if (this.state.users === 0) {
+      //   lastUserDiff = this.state.lastUserDiff || DEFAULT_DIFF;
+      // } else if (realDiff) {
+      //   lastUserDiff = realDiff;
+      // } else {
+      //   lastUserDiff = this.state.lastUserDiff || DEFAULT_DIFF;
+      // }
+      // console.log("Last real diff", realDiff);
+      // console.log("New user count", data.users);
+      // console.log("New diff to use", lastUserDiff);
+      // this.setState(Object.assign({}, data, {
+      //   _lastRealUserCount: data.users,
+      //   lastUserDiff
+      // }));
     }
   }
   setIntervals() {
     if (!this.inverval) {
       this.interval = setInterval(this.updateData, TEN_MINUTES);
       this.fakeInterval = setInterval(() => {
-        this.setState({users: increment(this.state.users, this.state.lastUserDiff, 5000)});
+        this.setState({users: this.state.users + 537});
       }, 5000);
     }
   }
