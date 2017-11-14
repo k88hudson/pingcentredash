@@ -73,7 +73,7 @@ h3 {
   height: 25vw;
   bottom: 6vh;
   left: 63vw;
-  animation: none;
+  animation-duration: 7s;
 }
 
 .bubble .od {
