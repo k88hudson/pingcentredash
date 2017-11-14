@@ -112,7 +112,7 @@ class App extends React.PureComponent {
       <section className="title">
         <div id="logo" />
       </section>
-      <Panel primary><Counter value={this.state.users} label="New Tab Users" /></Panel>
+      <Panel primary><Counter value={this.state.users} label="Users" /></Panel>
       <section className="three">
         <Bubble><Counter value={this.state.newtabs} label="New Tabs Opened" /></Bubble>
         <Bubble><Counter  value={this.state.pocket} label="Pocket Stories Read" /></Bubble>

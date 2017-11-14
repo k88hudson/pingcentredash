@@ -1782,7 +1782,7 @@ class App extends React.PureComponent {
       React.createElement(
         Panel,
         { primary: true },
-        React.createElement(Counter, { value: this.state.users, label: "New Tab Users" })
+        React.createElement(Counter, { value: this.state.users, label: "Users" })
       ),
       React.createElement(
         "section",
