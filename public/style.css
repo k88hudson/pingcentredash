@@ -46,6 +46,7 @@ h3 {
 .three .bubble {
   position: absolute;
   border-radius: 100%;
+  animation: BubbleFloat 5s infinite;
 }
 
 .three > .bubble:first-child {
@@ -55,6 +56,7 @@ h3 {
   bottom: 12vh;
   left: 10vw;
   z-index: 0;
+  animation-duration: 10s;
 }
 .three > .bubble:nth-child(2) {
   background: rgba(237, 0, 181, 0.8);
@@ -70,6 +72,7 @@ h3 {
   height: 25vw;
   bottom: 6vh;
   left: 63vw;
+  animation: none;
 }
 
 .bubble .od {
@@ -461,6 +464,13 @@ h3 {
   100% {
    visibility:collapse
   }
+ }
+
+
+ @keyframes BubbleFloat {
+   50% {
+    transform: scale(1.1);
+   }
  }
 
 .panel > div {
