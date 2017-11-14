@@ -61,7 +61,8 @@ class App extends React.PureComponent {
       newtabs: 0,
       pocket: 0,
       countries: [],
-      lastUserDiff: 0
+      lastUserDiff: 0,
+      _lastRealUserCount: null
     };
     this.updateData = this.updateData.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -71,14 +72,21 @@ class App extends React.PureComponent {
 
     if (data) {
       let lastUserDiff;
+      const realDiff = this.state._lastRealUserCount && data.users - this.state._lastRealUserCount;
       if (this.state.users === 0) {
         lastUserDiff = this.state.lastUserDiff || DEFAULT_DIFF;
+      } else if (realDiff) {
+        lastUserDiff = realDiff;
       } else {
-        const realDiff = data.users - this.state.users;
-        lastUserDiff = realDiff > 0 ? realDiff : (this.state.lastUserDiff || DEFAULT_DIFF);
+        lastUserDiff = this.state.lastUserDiff || DEFAULT_DIFF;
       }
-      console.log("Last diff ", lastUserDiff);
-      this.setState(Object.assign({}, data, {lastUserDiff}));
+      console.log("Last real diff", realDiff);
+      console.log("New user count", data.users);
+      console.log("New diff to use", lastUserDiff);
+      this.setState(Object.assign({}, data, {
+        _lastRealUserCount: data.users,
+        lastUserDiff
+      }));
     }
   }
   setIntervals() {
