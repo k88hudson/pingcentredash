@@ -3,7 +3,7 @@ import React from "react";
 import emoji from "country-to-emoji-flag";
 
 const DATA_URL = "https://sql.telemetry.mozilla.org/api/queries/49097/results.json?api_key=";
-const DEFAULT_DIFF = 1200;
+const DEFAULT_DIFF = 25493;
 const FIVE_MINUTES = 5 * 60 * 1000;
 
 function getTopFiveCountries(countries) {
