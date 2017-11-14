@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "live-server ./public --port=1977 --watch=public,src",
     "bundle": "rollup -c rollup.config.js"
   },
   "author": "",
@@ -23,6 +24,7 @@
     "babel-core": "^6.26.0",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "live-server": "^1.2.0",
     "odometer": "^0.4.8",
     "rollup": "^0.51.2",
     "rollup-plugin-babel": "^3.0.2",
