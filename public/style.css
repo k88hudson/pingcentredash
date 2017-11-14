@@ -68,7 +68,7 @@ h3 {
   background: rgba(10, 132, 255, 0.8);
   width: 25vw;
   height: 25vw;
-  bottom: 3vh;
+  bottom: 5vh;
   left: 63vw;
 }
 
@@ -89,7 +89,7 @@ h3 {
 }
 
 .panel {
-  font-size: 1.2vw;
+  font-size: 2vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -483,13 +483,14 @@ h3 {
 .country-table {
   text-align: left;
   vertical-align: middle;
+  font-size: 1.4vw;
 }
 
 .country-table td {
   padding: 0 10px;
 }
 .country-table .flag {
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 
 /* OD ---------------------------- */

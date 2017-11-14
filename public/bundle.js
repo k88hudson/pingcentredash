@@ -1744,9 +1744,15 @@ class App extends React.PureComponent {
   setIntervals() {
     if (!this.inverval) {
       this.interval = setInterval(this.updateData, TEN_MINUTES);
-      this.fakeInterval = setInterval(() => {
+      setInterval(() => {
         this.setState({ users: this.state.users + 537 });
-      }, 5000);
+      }, 7000);
+      setInterval(() => {
+        this.setState({ newtabs: this.state.newtabs + 1238 });
+      }, 2000);
+      setInterval(() => {
+        this.setState({ pocket: this.state.pocket + 43 });
+      }, 8000);
     }
   }
   async onSubmit(e) {
