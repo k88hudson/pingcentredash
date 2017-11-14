@@ -73,7 +73,8 @@ h3 {
 }
 
 .bubble .od {
-  font-size: 2.2vw;
+  font-size: 3.2vw;
+  /* margin-bottom: 1vw; */
 }
 
 .title {
@@ -469,7 +470,7 @@ h3 {
 
 .od {
   font-weight: 300;
-  font-family: "Roboto Mono", monospace;
+  font-family: "DecimaMonoLt", monospace;
 }
 
 .panel.primary .od {
@@ -478,6 +479,7 @@ h3 {
 
 .country-table .od {
   font-size: inherit;
+  margin: 0;
 }
 
 .country-table {

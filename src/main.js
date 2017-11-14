@@ -94,13 +94,13 @@ class App extends React.PureComponent {
     if (!this.inverval) {
       this.interval = setInterval(this.updateData, TEN_MINUTES);
       setInterval(() => {
-        this.setState({users: this.state.users + 537});
+        this.setState({users: this.state.users + 237});
       }, 7000);
       setInterval(() => {
-        this.setState({newtabs: this.state.newtabs + 1238});
+        this.setState({newtabs: this.state.newtabs + 238});
       }, 2000);
       setInterval(() => {
-        this.setState({pocket: this.state.pocket + 43});
+        this.setState({pocket: this.state.pocket + 13});
       }, 8000);
     }
   }
