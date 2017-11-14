@@ -3,7 +3,7 @@ import React from "react";
 import emoji from "country-to-emoji-flag";
 
 const DATA_URL = "https://sql.telemetry.mozilla.org/api/queries/49097/results.json?api_key=";
-
+const DEFAULT_DIFF = 1200;
 const FIVE_MINUTES = 5 * 60 * 1000;
 
 function getTopFiveCountries(countries) {
@@ -26,7 +26,6 @@ async function getData(apiKey) {
     console.error(e);
     return;
   }
-  console.log(resp);
   const data = resp.query_result.data.rows;
   const {total: users, count: newtabs} = data[0];
   const {total: pocket} = data[1];
@@ -48,6 +47,11 @@ const Counter = props => (<div>
   {props.label && <div>{props.label}</div>}
 </div>);
 
+function increment(currentValue, lastDiff, updateFreq) {
+  const amount = lastDiff / (FIVE_MINUTES / updateFreq);
+  return currentValue + amount;
+}
+
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -56,7 +60,8 @@ class App extends React.PureComponent {
       users: 0,
       newtabs: 0,
       pocket: 0,
-      countries: []
+      countries: [],
+      lastUserDiff: 0
     };
     this.updateData = this.updateData.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -65,14 +70,34 @@ class App extends React.PureComponent {
     const data = await getData(this.state.apiKey);
 
     if (data) {
-      this.setState(data);
+      let lastUserDiff;
+      if (this.state.users === 0) {
+        lastUserDiff = DEFAULT_DIFF;
+      } else {
+        lastUserDiff = (data.users - this.state.users) || DEFAULT_DIFF
+      }
+      console.log("Last diff ", lastUserDiff);
+      this.setState(Object.assign({}, data, {lastUserDiff}));
+    }
+  }
+  setIntervals() {
+    if (!this.inverval) {
+      this.interval = setInterval(this.updateData, FIVE_MINUTES);
+      this.fakeInterval = setInterval(() => {
+        this.setState({users: increment(this.state.users, this.state.lastUserDiff, 5000)});
+      }, 5000);
     }
   }
   async onSubmit(e) {
     await this.setState({apiKey: this.state._apiKey});
     this.updateData();
-    if (!this.inverval) {
-      this.interval = setInterval(this.updateData, FIVE_MINUTES);
+    this.setIntervals();
+  }
+  async componentDidMount() {
+    const key = localStorage.getItem("API_KEY");
+    if (key) {
+      await this.setState({_apiKey: key});
+      this.onSubmit();
     }
   }
   render() {

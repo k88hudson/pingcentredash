@@ -15,15 +15,6 @@ function createCommonjsModule(fn, module) {
 	return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
 function makeEmptyFunction(arg) {
   return function () {
     return arg;
@@ -58,17 +49,6 @@ var emptyFunction_1 = emptyFunction;
  *
  */
 
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
 var validateFormat = function validateFormat(format) {};
 
 if (undefined !== 'production') {
@@ -101,13 +81,6 @@ function invariant(condition, format, a, b, c, d, e, f) {
 }
 
 var invariant_1 = invariant;
-
-/**
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
- */
 
 var warning = emptyFunction_1;
 
@@ -159,7 +132,6 @@ object-assign
 @license MIT
 */
 
-/* eslint-disable no-unused-vars */
 var getOwnPropertySymbols = Object.getOwnPropertySymbols;
 var hasOwnProperty = Object.prototype.hasOwnProperty;
 var propIsEnumerable = Object.prototype.propertyIsEnumerable;
@@ -1675,7 +1647,7 @@ function emoji( country ){
 }
 
 const DATA_URL = "https://sql.telemetry.mozilla.org/api/queries/49097/results.json?api_key=";
-
+const DEFAULT_DIFF = 1200;
 const FIVE_MINUTES = 5 * 60 * 1000;
 
 function getTopFiveCountries(countries) {
@@ -1698,7 +1670,6 @@ async function getData(apiKey) {
     console.error(e);
     return;
   }
-  console.log(resp);
   const data = resp.query_result.data.rows;
   const { total: users, count: newtabs } = data[0];
   const { total: pocket } = data[1];
@@ -1733,6 +1704,11 @@ const Counter = props => React.createElement(
   )
 );
 
+function increment(currentValue, lastDiff, updateFreq) {
+  const amount = lastDiff / (FIVE_MINUTES / updateFreq);
+  return currentValue + amount;
+}
+
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -1741,7 +1717,8 @@ class App extends React.PureComponent {
       users: 0,
       newtabs: 0,
       pocket: 0,
-      countries: []
+      countries: [],
+      lastUserDiff: 0
     };
     this.updateData = this.updateData.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -1750,14 +1727,34 @@ class App extends React.PureComponent {
     const data = await getData(this.state.apiKey);
 
     if (data) {
-      this.setState(data);
+      let lastUserDiff;
+      if (this.state.users === 0) {
+        lastUserDiff = DEFAULT_DIFF;
+      } else {
+        lastUserDiff = data.users - this.state.users || DEFAULT_DIFF;
+      }
+      console.log("Last diff ", lastUserDiff);
+      this.setState(Object.assign({}, data, { lastUserDiff }));
+    }
+  }
+  setIntervals() {
+    if (!this.inverval) {
+      this.interval = setInterval(this.updateData, FIVE_MINUTES);
+      this.fakeInterval = setInterval(() => {
+        this.setState({ users: increment(this.state.users, this.state.lastUserDiff, 5000) });
+      }, 5000);
     }
   }
   async onSubmit(e) {
     await this.setState({ apiKey: this.state._apiKey });
     this.updateData();
-    if (!this.inverval) {
-      this.interval = setInterval(this.updateData, FIVE_MINUTES);
+    this.setIntervals();
+  }
+  async componentDidMount() {
+    const key = localStorage.getItem("API_KEY");
+    if (key) {
+      await this.setState({ _apiKey: key });
+      this.onSubmit();
     }
   }
   render() {
