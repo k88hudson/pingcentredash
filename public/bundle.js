@@ -1729,10 +1729,10 @@ class App extends React.PureComponent {
     if (data) {
       let lastUserDiff;
       if (this.state.users === 0) {
-        lastUserDiff = DEFAULT_DIFF;
+        lastUserDiff = this.state.lastUserDiff || DEFAULT_DIFF;
       } else {
         const realDiff = data.users - this.state.users;
-        lastUserDiff = realDiff > 0 ? realDiff : DEFAULT_DIFF;
+        lastUserDiff = realDiff > 0 ? realDiff : this.state.lastUserDiff || DEFAULT_DIFF;
       }
       console.log("Last diff ", lastUserDiff);
       this.setState(Object.assign({}, data, { lastUserDiff }));
