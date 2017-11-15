@@ -114,7 +114,7 @@ class App extends React.PureComponent {
   }
   setIntervals() {
     if (!this.inverval) {
-      this.interval = setInterval(this.updateData, UPDATE_TIME);
+      this.interval = setInterval(this.updateData, this.props.updateFreq || UPDATE_TIME);
       if (this.props.increment) {
         setInterval(() => {
           this.setState({users: this.state.users + 137});
@@ -174,4 +174,4 @@ class App extends React.PureComponent {
   }
 }
 
-ReactDOM.render(<App increment={window.location.hash === "#increment"} />, document.getElementById("root"))
+ReactDOM.render(<App increment={window.location.hash === "#increment"} updateFreq={60 * 1000} />, document.getElementById("root"))
