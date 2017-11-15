@@ -1749,15 +1749,17 @@ class App extends React.PureComponent {
   setIntervals() {
     if (!this.inverval) {
       this.interval = setInterval(this.updateData, UPDATE_TIME);
-      setInterval(() => {
-        this.setState({ users: this.state.users + 137 });
-      }, 7000);
-      setInterval(() => {
-        this.setState({ newtabs: this.state.newtabs + 238 });
-      }, 2000);
-      setInterval(() => {
-        this.setState({ pocket: this.state.pocket + 13 });
-      }, 8000);
+      if (this.props.increment) {
+        setInterval(() => {
+          this.setState({ users: this.state.users + 137 });
+        }, 7000);
+        setInterval(() => {
+          this.setState({ newtabs: this.state.newtabs + 238 });
+        }, 2000);
+        setInterval(() => {
+          this.setState({ pocket: this.state.pocket + 13 });
+        }, 8000);
+      }
     }
   }
   // async onSubmit(e) {
@@ -1847,6 +1849,6 @@ class App extends React.PureComponent {
   }
 }
 
-ReactDOM.render(React.createElement(App, null), document.getElementById("root"));
+ReactDOM.render(React.createElement(App, { increment: window.location.hash === "#increment" }), document.getElementById("root"));
 
 }(React));
