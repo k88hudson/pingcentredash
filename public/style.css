@@ -51,8 +51,8 @@ h3 {
 
 .three > .bubble:first-child {
   background: rgba(0, 200, 215, 0.8);
-  width: 21vw;
-  height: 21vw;
+  width: 23vw;
+  height: 23vw;
   bottom: 12vh;
   left: 10vw;
   z-index: 0;
@@ -77,7 +77,7 @@ h3 {
 }
 
 .bubble .od {
-  font-size: 3.2vw;
+  font-size: 3.1vw;
   /* margin-bottom: 1vw; */
 }
 
